@@ -1,0 +1,58 @@
+{
+  "name": "miyabi-official",
+  "owner": "miyabi",
+  "description": "Miyabi - 完全自律型AI開発オペレーションプラットフォーム",
+  "repository": "https://github.com/ShunsukeHayashi/miyabi-claude-plugins",
+  "homepage": "https://shunsukehayashi.github.io/miyabi-claude-plugins/",
+  "plugins": [
+    {
+      "name": "miyabi-full",
+      "source": "https://shunsukehayashi.github.io/miyabi-claude-plugins/miyabi-full-v2.0.0.zip",
+      "version": "2.0.0",
+      "description": "Miyabi 完全パッケージ - 25 Agents + 22 Skills + 50 Commands",
+      "featured": true
+    },
+    {
+      "name": "miyabi-coding-agents",
+      "source": "https://shunsukehayashi.github.io/miyabi-claude-plugins/miyabi-coding-agents-v2.0.0.zip",
+      "version": "2.0.0",
+      "description": "9 Coding Agents"
+    },
+    {
+      "name": "miyabi-business-agents",
+      "source": "https://shunsukehayashi.github.io/miyabi-claude-plugins/miyabi-business-agents-v2.0.0.zip",
+      "version": "2.0.0",
+      "description": "16 Business Agents"
+    },
+    {
+      "name": "miyabi-skills",
+      "source": "https://shunsukehayashi.github.io/miyabi-claude-plugins/miyabi-skills-v2.0.0.zip",
+      "version": "2.0.0",
+      "description": "22 Development Skills"
+    },
+    {
+      "name": "miyabi-commands",
+      "source": "https://shunsukehayashi.github.io/miyabi-claude-plugins/miyabi-commands-v2.0.0.zip",
+      "version": "2.0.0",
+      "description": "50+ Slash Commands"
+    },
+    {
+      "name": "miyabi-hooks",
+      "source": "https://shunsukehayashi.github.io/miyabi-claude-plugins/miyabi-hooks-v2.0.0.zip",
+      "version": "2.0.0",
+      "description": "Pre/Post Tool Hooks"
+    },
+    {
+      "name": "miyabi-honoka",
+      "source": "https://shunsukehayashi.github.io/miyabi-claude-plugins/miyabi-honoka-v2.0.0.zip",
+      "version": "2.0.0",
+      "description": "穂花 - Udemyコース作成Agent"
+    },
+    {
+      "name": "miyabi-guardian",
+      "source": "https://shunsukehayashi.github.io/miyabi-claude-plugins/miyabi-guardian-v2.0.0.zip",
+      "version": "2.0.0",
+      "description": "Guardian - 障害対応Agent"
+    }
+  ]
+}

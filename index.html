@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miyabi Plugins for Claude Code - 自律型AI開発プラグイン</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #E91E63;
+            --primary-dark: #C2185B;
+            --secondary: #9C27B0;
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --text: #ffffff;
+            --text-muted: #8b8b9e;
+            --border: #2a2a3e;
+            --gradient: linear-gradient(135deg, #E91E63 0%, #9C27B0 100%);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: radial-gradient(ellipse at center, #1a1a2e 0%, var(--bg-dark) 70%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(233, 30, 99, 0.1) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+        
+        .logo {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(233, 30, 99, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            background: rgba(233, 30, 99, 0.1);
+        }
+        
+        /* Stats */
+        .stats {
+            display: flex;
+            gap: 3rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* Section */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Install Section */
+        .install-section {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+        }
+        
+        .install-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .step {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .step-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .step-content p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        
+        .code-block {
+            background: #1e1e2e;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.95rem;
+            overflow-x: auto;
+            position: relative;
+        }
+        
+        .code-block code {
+            color: #50fa7b;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--border);
+            border: none;
+            color: var(--text-muted);
+            padding: 0.3rem 0.8rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .copy-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Plugin Cards */
+        .plugins-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .plugin-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .plugin-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(233, 30, 99, 0.2);
+        }
+        
+        .plugin-card.featured {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(233, 30, 99, 0.1) 0%, rgba(156, 39, 176, 0.1) 100%);
+        }
+        
+        .plugin-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .plugin-icon {
+            font-size: 2.5rem;
+        }
+        
+        .plugin-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .plugin-badge {
+            background: var(--gradient);
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .plugin-desc {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+        
+        .plugin-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .plugin-features li {
+            padding: 0.3rem 0;
+            color: var(--text-muted);
+        }
+        
+        .plugin-features li::before {
+            content: '✓';
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+        
+        .plugin-install {
+            background: #1e1e2e;
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #50fa7b;
+            word-break: break-all;
+        }
+        
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature p {
+            color: var(--text-muted);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+        
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .tagline { font-size: 1.2rem; }
+            .stats { gap: 2rem; }
+            .stat-number { font-size: 2rem; }
+            .step { flex-direction: column; }
+            .plugins-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="logo">🌸</div>
+            <h1>Miyabi Plugins</h1>
+            <p class="tagline">Claude Code を自律型AI開発プラットフォームに変える<br>25+ Agents • 22 Skills • 50+ Commands</p>
+            
+            <div class="cta-buttons">
+                <a href="#install" class="btn btn-primary">🚀 今すぐインストール</a>
+                <a href="#plugins" class="btn btn-secondary">📦 プラグイン一覧</a>
+            </div>
+            
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">25+</div>
+                    <div class="stat-label">Agents</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">22</div>
+                    <div class="stat-label">Skills</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Commands</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">10</div>
+                    <div class="stat-label">Plugins</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Install -->
+    <section id="install">
+        <h2>⚡ 3ステップでインストール</h2>
+        <p class="section-subtitle">Claude Code で以下のコマンドを実行するだけ</p>
+        
+        <div class="install-section">
+            <div class="install-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>マーケットプレイスを追加</h3>
+                        <p>Miyabi 公式マーケットプレイスを登録します</p>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+                            <code>/plugin marketplace add https://miyabi-world.com/plugins/marketplace.json</code>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>プラグインをインストール</h3>
+                        <p>フルパッケージまたは必要なプラグインを選択</p>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+                            <code>/plugin install miyabi-full@miyabi-official</code>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>完了！確認する</h3>
+                        <p>新しいコマンドが使えるようになります</p>
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+                            <code>/help</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Plugins -->
+    <section id="plugins">
+        <h2>📦 プラグイン一覧</h2>
+        <p class="section-subtitle">用途に合わせて選べる10種類のプラグイン</p>
+        
+        <div class="plugins-grid">
+            <!-- Full Package -->
+            <div class="plugin-card featured">
+                <div class="plugin-header">
+                    <span class="plugin-icon">🌸</span>
+                    <span class="plugin-name">miyabi-full</span>
+                    <span class="plugin-badge">推奨</span>
+                </div>
+                <p class="plugin-desc">すべての機能を含む完全パッケージ。これ1つで全機能が使えます。</p>
+                <ul class="plugin-features">
+                    <li>25+ AI Agents</li>
+                    <li>22 Development Skills</li>
+                    <li>50+ Slash Commands</li>
+                    <li>Pre/Post Hooks</li>
+                    <li>MCP Server Configs</li>
+                </ul>
+                <div class="plugin-install">/plugin install miyabi-full@miyabi-official</div>
+            </div>
+            
+            <!-- Coding Agents -->
+            <div class="plugin-card">
+                <div class="plugin-header">
+                    <span class="plugin-icon">💻</span>
+                    <span class="plugin-name">miyabi-coding-agents</span>
+                </div>
+                <p class="plugin-desc">コード生成、レビュー、デプロイを自動化する9つのCoding Agents</p>
+                <ul class="plugin-features">
+                    <li>CoordinatorAgent - タスク調整</li>
+                    <li>CodeGenAgent - コード生成</li>
+                    <li>ReviewAgent - コードレビュー</li>
+                    <li>PRAgent - PR自動作成</li>
+                    <li>DeploymentAgent - デプロイ管理</li>
+                </ul>
+                <div class="plugin-install">/plugin install miyabi-coding-agents@miyabi-official</div>
+            </div>
+            
+            <!-- Business Agents -->
+            <div class="plugin-card">
+                <div class="plugin-header">
+                    <span class="plugin-icon">📊</span>
+                    <span class="plugin-name">miyabi-business-agents</span>
+                </div>
+                <p class="plugin-desc">マーケティング、営業、コンテンツ作成を支援する16のBusiness Agents</p>
+                <ul class="plugin-features">
+                    <li>MarketingAgent - マーケティング戦略</li>
+                    <li>SalesAgent - 営業支援</li>
+                    <li>CRMAgent - 顧客管理</li>
+                    <li>YouTubeAgent - 動画マーケティング</li>
+                    <li>AnalyticsAgent - データ分析</li>
+                </ul>
+                <div class="plugin-install">/plugin install miyabi-business-agents@miyabi-official</div>
+            </div>
+            
+            <!-- Skills -->
+            <div class="plugin-card">
+                <div class="plugin-header">
+                    <span class="plugin-icon">🎯</span>
+                    <span class="plugin-name">miyabi-skills</span>
+                </div>
+                <p class="plugin-desc">開発効率を上げる22の専門スキルセット</p>
+                <ul class="plugin-features">
+                    <li>Rust Development</li>
+                    <li>TDD Workflow</li>
+                    <li>Security Audit</li>
+                    <li>Performance Analysis</li>
+                    <li>Documentation Generation</li>
+                </ul>
+                <div class="plugin-install">/plugin install miyabi-skills@miyabi-official</div>
+            </div>
+            
+            <!-- Commands -->
+            <div class="plugin-card">
+                <div class="plugin-header">
+                    <span class="plugin-icon">⚡</span>
+                    <span class="plugin-name">miyabi-commands</span>
+                </div>
+                <p class="plugin-desc">日常タスクを効率化する50+のSlashコマンド</p>
+                <ul class="plugin-features">
+                    <li>/deploy - デプロイ実行</li>
+                    <li>/review - コードレビュー</li>
+                    <li>/security-scan - セキュリティスキャン</li>
+                    <li>/daily-update - 日次更新</li>
+                    <li>/agent-run - Agent実行</li>
+                </ul>
+                <div class="plugin-install">/plugin install miyabi-commands@miyabi-official</div>
+            </div>
+            
+            <!-- Hooks -->
+            <div class="plugin-card">
+                <div class="plugin-header">
+                    <span class="plugin-icon">🔗</span>
+                    <span class="plugin-name">miyabi-hooks</span>
+                </div>
+                <p class="plugin-desc">自動化フックでワークフローを最適化</p>
+                <ul class="plugin-features">
+                    <li>Pre-commit validation</li>
+                    <li>Post-test notification</li>
+                    <li>Session management</li>
+                    <li>Git integration</li>
+                    <li>Auto-formatting</li>
+                </ul>
+                <div class="plugin-install">/plugin install miyabi-hooks@miyabi-official</div>
+            </div>
+            
+            <!-- Honoka -->
+            <div class="plugin-card">
+                <div class="plugin-header">
+                    <span class="plugin-icon">🎓</span>
+                    <span class="plugin-name">miyabi-honoka</span>
+                </div>
+                <p class="plugin-desc">穂花(ほのか) - Udemyコース作成のスペシャリスト</p>
+                <ul class="plugin-features">
+                    <li>コース構成設計</li>
+                    <li>カリキュラム作成</li>
+                    <li>スライド生成</li>
+                    <li>スクリプト作成</li>
+                    <li>収益化戦略</li>
+                </ul>
+                <div class="plugin-install">/plugin install miyabi-honoka@miyabi-official</div>
+            </div>
+            
+            <!-- Guardian -->
+            <div class="plugin-card">
+                <div class="plugin-header">
+                    <span class="plugin-icon">🛡️</span>
+                    <span class="plugin-name">miyabi-guardian</span>
+                </div>
+                <p class="plugin-desc">Guardian - クリティカル障害対応とエスカレーション</p>
+                <ul class="plugin-features">
+                    <li>障害検知</li>
+                    <li>自動エスカレーション</li>
+                    <li>インシデント管理</li>
+                    <li>復旧支援</li>
+                </ul>
+                <div class="plugin-install">/plugin install miyabi-guardian@miyabi-official</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features -->
+    <section id="features">
+        <h2>✨ なぜ Miyabi Plugins？</h2>
+        <p class="section-subtitle">Claude Code をさらにパワフルに</p>
+        
+        <div class="features-grid">
+            <div class="feature">
+                <div class="feature-icon">🤖</div>
+                <h3>自律型AI Agent</h3>
+                <p>25+ の専門化されたAgentがタスクを自動的に処理</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🚀</div>
+                <h3>ワンコマンド操作</h3>
+                <p>複雑な作業もSlashコマンド1つで完了</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔄</div>
+                <h3>GitHub as OS</h3>
+                <p>Issue → コード → PR → デプロイを完全自動化</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📈</div>
+                <h3>ビジネス自動化</h3>
+                <p>マーケティングから営業まで、ビジネスプロセスを効率化</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🛠️</div>
+                <h3>開発効率UP</h3>
+                <p>TDD、コードレビュー、デプロイを自動化</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔌</div>
+                <h3>簡単インストール</h3>
+                <p>3ステップで完了、依存関係の心配なし</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <p>🌸 <strong>Miyabi Plugins</strong> - Beauty in Autonomous Development</p>
+        <p style="margin-top: 1rem;">
+            <a href="https://github.com/customer-cloud/miyabi-private">GitHub</a> • 
+            <a href="https://miyabi-world.com">Website</a> • 
+            Version 2.0.0
+        </p>
+        <p style="margin-top: 1rem; font-size: 0.85rem;">
+            © 2025 Shunsuke Hayashi. Apache-2.0 License.
+        </p>
+    </footer>
+    
+    <script>
+        function copyCode(btn) {
+            const code = btn.parentElement.querySelector('code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                btn.textContent = 'コピー完了!';
+                setTimeout(() => btn.textContent = 'コピー', 2000);
+            });
+        }
+    </script>
+</body>
+</html>
