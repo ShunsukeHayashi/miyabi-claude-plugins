@@ -4,32 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Miyabi Plugins for Claude Code - 自律型AI開発プラグイン</title>
+    <meta name="description" content="Claude Code を完全自律型AI開発プラットフォームに変革。25+ Agents、22 Skills、50+ Commands を今すぐ無料で使える。">
+    <meta name="keywords" content="Claude Code, AI Agent, プラグイン, 開発自動化, Miyabi">
+    <meta property="og:title" content="Miyabi Plugins - Claude Code を自律型AI開発プラットフォームに">
+    <meta property="og:description" content="25+ AI Agents で開発を完全自動化。無料でオープンソース。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://shunsukehayashi.github.io/miyabi-claude-plugins/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         :root {
             --primary: #E91E63;
             --primary-dark: #C2185B;
             --secondary: #9C27B0;
+            --discord: #5865F2;
             --bg-dark: #0a0a0f;
             --bg-card: #12121a;
             --text: #ffffff;
             --text-muted: #8b8b9e;
             --border: #2a2a3e;
             --gradient: linear-gradient(135deg, #E91E63 0%, #9C27B0 100%);
+            --gradient-discord: linear-gradient(135deg, #5865F2 0%, #7289DA 100%);
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg-dark);
             color: var(--text);
             line-height: 1.6;
         }
-        
+
+        /* Floating Discord Button */
+        .floating-discord {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .floating-discord a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--gradient-discord);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 10px 40px rgba(88, 101, 242, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .floating-discord a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 50px rgba(88, 101, 242, 0.6);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
         /* Hero Section */
         .hero {
             min-height: 100vh;
@@ -43,7 +86,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .hero::before {
             content: '';
             position: absolute;
@@ -54,23 +97,44 @@
             background: radial-gradient(circle, rgba(233, 30, 99, 0.1) 0%, transparent 50%);
             animation: pulse 8s ease-in-out infinite;
         }
-        
+
         @keyframes pulse {
             0%, 100% { transform: scale(1); opacity: 0.5; }
             50% { transform: scale(1.1); opacity: 0.8; }
         }
-        
+
         .hero-content {
             position: relative;
             z-index: 1;
             max-width: 900px;
         }
-        
+
         .logo {
             font-size: 5rem;
             margin-bottom: 1rem;
         }
-        
+
+        .badge-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border);
+        }
+
+        .badge-new {
+            background: var(--gradient);
+            border: none;
+        }
+
         h1 {
             font-size: 3.5rem;
             font-weight: 700;
@@ -80,13 +144,13 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
+
         .tagline {
             font-size: 1.5rem;
             color: var(--text-muted);
             margin-bottom: 2rem;
         }
-        
+
         .cta-buttons {
             display: flex;
             gap: 1rem;
@@ -94,7 +158,7 @@
             flex-wrap: wrap;
             margin-bottom: 3rem;
         }
-        
+
         .btn {
             padding: 1rem 2rem;
             border-radius: 50px;
@@ -103,30 +167,44 @@
             text-decoration: none;
             transition: all 0.3s ease;
             cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
-        
+
         .btn-primary {
             background: var(--gradient);
             color: white;
             border: none;
         }
-        
+
         .btn-primary:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(233, 30, 99, 0.4);
         }
-        
+
+        .btn-discord {
+            background: var(--gradient-discord);
+            color: white;
+            border: none;
+        }
+
+        .btn-discord:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(88, 101, 242, 0.4);
+        }
+
         .btn-secondary {
             background: transparent;
             color: var(--text);
             border: 2px solid var(--border);
         }
-        
+
         .btn-secondary:hover {
             border-color: var(--primary);
             background: rgba(233, 30, 99, 0.1);
         }
-        
+
         /* Stats */
         .stats {
             display: flex;
@@ -134,11 +212,11 @@
             justify-content: center;
             flex-wrap: wrap;
         }
-        
+
         .stat {
             text-align: center;
         }
-        
+
         .stat-number {
             font-size: 3rem;
             font-weight: 700;
@@ -146,32 +224,103 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
+
         .stat-label {
             color: var(--text-muted);
             font-size: 0.9rem;
         }
-        
+
         /* Section */
         section {
             padding: 5rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
-        
+
         h2 {
             font-size: 2.5rem;
             text-align: center;
             margin-bottom: 1rem;
         }
-        
+
         .section-subtitle {
             text-align: center;
             color: var(--text-muted);
             margin-bottom: 3rem;
             font-size: 1.1rem;
         }
-        
+
+        /* Discord Community Section */
+        .discord-section {
+            background: linear-gradient(135deg, rgba(88, 101, 242, 0.2) 0%, rgba(114, 137, 218, 0.1) 100%);
+            border-radius: 30px;
+            padding: 4rem 2rem;
+            margin: 3rem auto;
+            max-width: 1000px;
+            text-align: center;
+            border: 2px solid rgba(88, 101, 242, 0.3);
+        }
+
+        .discord-section h2 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .discord-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .discord-benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .discord-benefit {
+            background: rgba(0,0,0,0.3);
+            padding: 1.5rem;
+            border-radius: 15px;
+        }
+
+        .discord-benefit h4 {
+            color: #7289DA;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .discord-benefit p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .member-count {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0,0,0,0.3);
+            padding: 10px 20px;
+            border-radius: 30px;
+            margin-bottom: 2rem;
+        }
+
+        .online-dot {
+            width: 10px;
+            height: 10px;
+            background: #3BA55C;
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
         /* Install Section */
         .install-section {
             background: var(--bg-card);
@@ -179,19 +328,19 @@
             padding: 3rem;
             margin: 2rem 0;
         }
-        
+
         .install-steps {
             display: flex;
             flex-direction: column;
             gap: 2rem;
         }
-        
+
         .step {
             display: flex;
             gap: 1.5rem;
             align-items: flex-start;
         }
-        
+
         .step-number {
             width: 50px;
             height: 50px;
@@ -204,17 +353,17 @@
             font-weight: 700;
             flex-shrink: 0;
         }
-        
+
         .step-content h3 {
             font-size: 1.3rem;
             margin-bottom: 0.5rem;
         }
-        
+
         .step-content p {
             color: var(--text-muted);
             margin-bottom: 1rem;
         }
-        
+
         .code-block {
             background: #1e1e2e;
             border: 1px solid var(--border);
@@ -225,11 +374,11 @@
             overflow-x: auto;
             position: relative;
         }
-        
+
         .code-block code {
             color: #50fa7b;
         }
-        
+
         .copy-btn {
             position: absolute;
             top: 0.5rem;
@@ -242,19 +391,19 @@
             cursor: pointer;
             font-size: 0.8rem;
         }
-        
+
         .copy-btn:hover {
             background: var(--primary);
             color: white;
         }
-        
+
         /* Plugin Cards */
         .plugins-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 1.5rem;
         }
-        
+
         .plugin-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -262,34 +411,34 @@
             padding: 2rem;
             transition: all 0.3s ease;
         }
-        
+
         .plugin-card:hover {
             border-color: var(--primary);
             transform: translateY(-5px);
             box-shadow: 0 10px 40px rgba(233, 30, 99, 0.2);
         }
-        
+
         .plugin-card.featured {
             border-color: var(--primary);
             background: linear-gradient(135deg, rgba(233, 30, 99, 0.1) 0%, rgba(156, 39, 176, 0.1) 100%);
         }
-        
+
         .plugin-header {
             display: flex;
             align-items: center;
             gap: 1rem;
             margin-bottom: 1rem;
         }
-        
+
         .plugin-icon {
             font-size: 2.5rem;
         }
-        
+
         .plugin-name {
             font-size: 1.3rem;
             font-weight: 600;
         }
-        
+
         .plugin-badge {
             background: var(--gradient);
             color: white;
@@ -298,28 +447,28 @@
             font-size: 0.75rem;
             font-weight: 600;
         }
-        
+
         .plugin-desc {
             color: var(--text-muted);
             margin-bottom: 1.5rem;
         }
-        
+
         .plugin-features {
             list-style: none;
             margin-bottom: 1.5rem;
         }
-        
+
         .plugin-features li {
             padding: 0.3rem 0;
             color: var(--text-muted);
         }
-        
+
         .plugin-features li::before {
             content: '✓';
             color: var(--primary);
             margin-right: 0.5rem;
         }
-        
+
         .plugin-install {
             background: #1e1e2e;
             border-radius: 8px;
@@ -329,33 +478,89 @@
             color: #50fa7b;
             word-break: break-all;
         }
-        
+
         /* Features */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
         }
-        
+
         .feature {
             text-align: center;
             padding: 2rem;
         }
-        
+
         .feature-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
         }
-        
+
         .feature h3 {
             font-size: 1.3rem;
             margin-bottom: 0.5rem;
         }
-        
+
         .feature p {
             color: var(--text-muted);
         }
-        
+
+        /* Testimonials */
+        .testimonials {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+        }
+
+        .testimonial-role {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, rgba(233, 30, 99, 0.1) 0%, rgba(156, 39, 176, 0.1) 100%);
+            border-radius: 30px;
+            margin: 3rem auto;
+            max-width: 1000px;
+        }
+
+        .cta-section h2 {
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
         /* Footer */
         footer {
             text-align: center;
@@ -363,12 +568,26 @@
             border-top: 1px solid var(--border);
             color: var(--text-muted);
         }
-        
+
         footer a {
             color: var(--primary);
             text-decoration: none;
         }
-        
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
@@ -377,26 +596,49 @@
             .stat-number { font-size: 2rem; }
             .step { flex-direction: column; }
             .plugins-grid { grid-template-columns: 1fr; }
+            .floating-discord { bottom: 20px; right: 20px; }
+            .floating-discord a { padding: 12px 20px; font-size: 0.9rem; }
         }
     </style>
 </head>
 <body>
+    <!-- Floating Discord Button -->
+    <div class="floating-discord">
+        <a href="https://discord.gg/Urx8547abS" target="_blank">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+            </svg>
+            Discord参加
+        </a>
+    </div>
+
     <!-- Hero -->
     <section class="hero">
         <div class="hero-content">
+            <div class="badge-container">
+                <span class="badge badge-new">🆕 v2.0.0 Release</span>
+                <span class="badge">🆓 無料・オープンソース</span>
+                <span class="badge">⭐ Apache-2.0</span>
+            </div>
             <div class="logo">🌸</div>
             <h1>Miyabi Plugins</h1>
             <p class="tagline">Claude Code を自律型AI開発プラットフォームに変える<br>25+ Agents • 22 Skills • 50+ Commands</p>
-            
+
             <div class="cta-buttons">
                 <a href="#install" class="btn btn-primary">🚀 今すぐインストール</a>
+                <a href="https://discord.gg/Urx8547abS" class="btn btn-discord" target="_blank">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                    </svg>
+                    Discord参加
+                </a>
                 <a href="#plugins" class="btn btn-secondary">📦 プラグイン一覧</a>
             </div>
-            
+
             <div class="stats">
                 <div class="stat">
                     <div class="stat-number">25+</div>
-                    <div class="stat-label">Agents</div>
+                    <div class="stat-label">AI Agents</div>
                 </div>
                 <div class="stat">
                     <div class="stat-number">22</div>
@@ -407,18 +649,56 @@
                     <div class="stat-label">Commands</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number">10</div>
-                    <div class="stat-label">Plugins</div>
+                    <div class="stat-number">FREE</div>
+                    <div class="stat-label">オープンソース</div>
                 </div>
             </div>
         </div>
     </section>
-    
+
+    <!-- Discord Community Section -->
+    <div class="discord-section">
+        <div class="discord-icon">💬</div>
+        <h2>🌸 Miyabi Community に参加</h2>
+        <p class="section-subtitle">AIエージェント開発者・エンジニアが集まるコミュニティ</p>
+
+        <div class="member-count">
+            <span class="online-dot"></span>
+            <span>コミュニティ成長中 - 今すぐ参加</span>
+        </div>
+
+        <div class="discord-benefits">
+            <div class="discord-benefit">
+                <h4>🆕 最新情報</h4>
+                <p>新Agent・新機能の先行リリース情報をゲット</p>
+            </div>
+            <div class="discord-benefit">
+                <h4>💡 Tips共有</h4>
+                <p>他のユーザーのベストプラクティスを学ぶ</p>
+            </div>
+            <div class="discord-benefit">
+                <h4>🛠️ サポート</h4>
+                <p>インストール・設定で困ったら質問できる</p>
+            </div>
+            <div class="discord-benefit">
+                <h4>🤝 交流</h4>
+                <p>AIエンジニア・開発者とネットワーキング</p>
+            </div>
+        </div>
+
+        <a href="https://discord.gg/Urx8547abS" class="btn btn-discord" target="_blank" style="font-size: 1.2rem; padding: 1.2rem 3rem;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+            </svg>
+            無料で Discord に参加する
+        </a>
+    </div>
+
     <!-- Install -->
     <section id="install">
         <h2>⚡ 3ステップでインストール</h2>
         <p class="section-subtitle">Claude Code で以下のコマンドを実行するだけ</p>
-        
+
         <div class="install-section">
             <div class="install-steps">
                 <div class="step">
@@ -428,11 +708,11 @@
                         <p>Miyabi 公式マーケットプレイスを登録します</p>
                         <div class="code-block">
                             <button class="copy-btn" onclick="copyCode(this)">コピー</button>
-                            <code>/plugin marketplace add https://miyabi-world.com/plugins/marketplace.json</code>
+                            <code>/plugin marketplace add https://shunsukehayashi.github.io/miyabi-claude-plugins/marketplace.json</code>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="step">
                     <div class="step-number">2</div>
                     <div class="step-content">
@@ -444,7 +724,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="step">
                     <div class="step-number">3</div>
                     <div class="step-content">
@@ -459,12 +739,12 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Plugins -->
     <section id="plugins">
         <h2>📦 プラグイン一覧</h2>
-        <p class="section-subtitle">用途に合わせて選べる10種類のプラグイン</p>
-        
+        <p class="section-subtitle">用途に合わせて選べる8種類のプラグイン</p>
+
         <div class="plugins-grid">
             <!-- Full Package -->
             <div class="plugin-card featured">
@@ -483,7 +763,7 @@
                 </ul>
                 <div class="plugin-install">/plugin install miyabi-full@miyabi-official</div>
             </div>
-            
+
             <!-- Coding Agents -->
             <div class="plugin-card">
                 <div class="plugin-header">
@@ -500,7 +780,7 @@
                 </ul>
                 <div class="plugin-install">/plugin install miyabi-coding-agents@miyabi-official</div>
             </div>
-            
+
             <!-- Business Agents -->
             <div class="plugin-card">
                 <div class="plugin-header">
@@ -517,7 +797,7 @@
                 </ul>
                 <div class="plugin-install">/plugin install miyabi-business-agents@miyabi-official</div>
             </div>
-            
+
             <!-- Skills -->
             <div class="plugin-card">
                 <div class="plugin-header">
@@ -534,7 +814,7 @@
                 </ul>
                 <div class="plugin-install">/plugin install miyabi-skills@miyabi-official</div>
             </div>
-            
+
             <!-- Commands -->
             <div class="plugin-card">
                 <div class="plugin-header">
@@ -551,7 +831,7 @@
                 </ul>
                 <div class="plugin-install">/plugin install miyabi-commands@miyabi-official</div>
             </div>
-            
+
             <!-- Hooks -->
             <div class="plugin-card">
                 <div class="plugin-header">
@@ -568,7 +848,7 @@
                 </ul>
                 <div class="plugin-install">/plugin install miyabi-hooks@miyabi-official</div>
             </div>
-            
+
             <!-- Honoka -->
             <div class="plugin-card">
                 <div class="plugin-header">
@@ -585,7 +865,7 @@
                 </ul>
                 <div class="plugin-install">/plugin install miyabi-honoka@miyabi-official</div>
             </div>
-            
+
             <!-- Guardian -->
             <div class="plugin-card">
                 <div class="plugin-header">
@@ -603,12 +883,12 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Features -->
     <section id="features">
         <h2>✨ なぜ Miyabi Plugins？</h2>
         <p class="section-subtitle">Claude Code をさらにパワフルに</p>
-        
+
         <div class="features-grid">
             <div class="feature">
                 <div class="feature-icon">🤖</div>
@@ -642,20 +922,40 @@
             </div>
         </div>
     </section>
-    
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+        <h2>🌸 今すぐ始めよう</h2>
+        <p>Miyabi Plugins で Claude Code を次のレベルへ</p>
+        <div class="cta-buttons">
+            <a href="#install" class="btn btn-primary">🚀 インストールする</a>
+            <a href="https://discord.gg/Urx8547abS" class="btn btn-discord" target="_blank">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                </svg>
+                Discord に参加
+            </a>
+            <a href="https://github.com/ShunsukeHayashi/miyabi-claude-plugins" class="btn btn-secondary" target="_blank">⭐ GitHub で Star</a>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer>
+        <div class="footer-links">
+            <a href="https://github.com/ShunsukeHayashi/miyabi-claude-plugins" target="_blank">
+                <span>📂</span> GitHub
+            </a>
+            <a href="https://discord.gg/Urx8547abS" target="_blank">
+                <span>💬</span> Discord
+            </a>
+        </div>
         <p>🌸 <strong>Miyabi Plugins</strong> - Beauty in Autonomous Development</p>
-        <p style="margin-top: 1rem;">
-            <a href="https://github.com/customer-cloud/miyabi-private">GitHub</a> • 
-            <a href="https://miyabi-world.com">Website</a> • 
-            Version 2.0.0
-        </p>
+        <p style="margin-top: 1rem;">Version 2.0.0</p>
         <p style="margin-top: 1rem; font-size: 0.85rem;">
             © 2025 Shunsuke Hayashi. Apache-2.0 License.
         </p>
     </footer>
-    
+
     <script>
         function copyCode(btn) {
             const code = btn.parentElement.querySelector('code').textContent;
