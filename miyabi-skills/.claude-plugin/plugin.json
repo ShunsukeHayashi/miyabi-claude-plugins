@@ -1,0 +1,12 @@
+{
+  "name": "miyabi-skills",
+  "version": "2.0.0",
+  "description": "22 Development Skills for Rust, TDD, Git, Security, Performance, and more",
+  "author": {
+    "name": "Shunsuke Hayashi",
+    "email": "supernovasyun@gmail.com"
+  },
+  "license": "Apache-2.0",
+  "keywords": ["skills", "rust", "tdd", "security", "performance"],
+  "skills": "./skills"
+}

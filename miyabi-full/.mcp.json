@@ -1,0 +1,77 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
+      "disabled": false,
+      "description": "Filesystem access for project files"
+    },
+
+    "miyabi-mcp-bundle": {
+      "command": "npx",
+      "args": ["-y", "miyabi-mcp-bundle"],
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}",
+        "GITHUB_DEFAULT_OWNER": "${GITHUB_DEFAULT_OWNER}",
+        "GITHUB_DEFAULT_REPO": "${GITHUB_DEFAULT_REPO}"
+      },
+      "disabled": false,
+      "description": "Miyabi MCP Bundle - 172+ tools for Git, GitHub, System, Docker, K8s, etc."
+    },
+
+    "github-enhanced": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-servers/github-enhanced.cjs"],
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}",
+        "REPOSITORY": "${REPOSITORY}"
+      },
+      "disabled": true,
+      "description": "Enhanced GitHub operations for Issue/PR management (requires local setup)"
+    },
+
+    "project-context": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-servers/project-context.cjs"],
+      "disabled": true,
+      "description": "Project-specific context and dependency information (requires local setup)"
+    },
+
+    "ide-integration": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-servers/ide-integration.cjs"],
+      "disabled": true,
+      "description": "VS Code diagnostics and Jupyter execution integration (requires local setup)"
+    },
+
+    "gemini-image-generation": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-servers/image-generation.js"],
+      "env": {
+        "GOOGLE_API_KEY": "${GOOGLE_API_KEY}"
+      },
+      "disabled": true,
+      "description": "Gemini 2.5 Flash Image - text to image generation (requires GOOGLE_API_KEY)"
+    },
+
+    "discord-community": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-servers/discord-integration.js"],
+      "env": {
+        "DISCORD_BOT_TOKEN": "${DISCORD_BOT_TOKEN}",
+        "DISCORD_GUILD_ID": "${DISCORD_GUILD_ID}",
+        "DISCORD_ANNOUNCE_CHANNEL": "${DISCORD_ANNOUNCE_CHANNEL}",
+        "DISCORD_GITHUB_CHANNEL": "${DISCORD_GITHUB_CHANNEL}"
+      },
+      "disabled": true,
+      "description": "Miyabi Discord community management (requires Discord bot setup)"
+    },
+
+    "miyabi-tmux": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-servers/miyabi-tmux-server/dist/index.js"],
+      "disabled": true,
+      "description": "Miyabi tmux MCP Server - Agent communication hub (requires local tmux setup)"
+    }
+  }
+}

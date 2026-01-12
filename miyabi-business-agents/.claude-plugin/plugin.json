@@ -1,0 +1,12 @@
+{
+  "name": "miyabi-business-agents",
+  "version": "2.0.0",
+  "description": "16 Business Agents for marketing, sales, content, and analytics automation",
+  "author": {
+    "name": "Shunsuke Hayashi",
+    "email": "supernovasyun@gmail.com"
+  },
+  "license": "Apache-2.0",
+  "keywords": ["business", "marketing", "sales", "content", "analytics"],
+  "agents": "./agents"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "miyabi-coding-agents",
+  "version": "2.0.0",
+  "description": "9 Coding Agents for automated software development",
+  "author": {
+    "name": "Shunsuke Hayashi",
+    "email": "supernovasyun@gmail.com"
+  },
+  "license": "Apache-2.0",
+  "keywords": ["coding", "agents", "automation", "github", "rust"],
+  "agents": "./agents"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "miyabi-honoka",
+  "version": "2.0.0",
+  "description": "穂花(ほのか) - Udemy コース作成＆コンテンツ販売の専門 Agent",
+  "author": {
+    "name": "Shunsuke Hayashi",
+    "email": "supernovasyun@gmail.com"
+  },
+  "license": "Apache-2.0",
+  "keywords": ["udemy", "course", "education", "content-creation"],
+  "agents": "./agents"
+}

@@ -1,0 +1,110 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "description": "Session start - Priority check and guidance",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/miyabi-priority-check.sh --verbose || echo '\n📋 上記の優先タスクから開始してください'"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "description": "Session end - Auto-report to Conductor",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "source ${CLAUDE_PLUGIN_ROOT}/scripts/miyabi_hooks.sh && miyabi_session_end_report"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "description": "VOICEVOX narration - gentle explanation after tool execution",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/voicevox-narrator.sh \"$TOOL_NAME\" \"$TOOL_INPUT\" \"$TOOL_OUTPUT\""
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "description": "Git work log collection - detect commits, pushes, PRs",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/scripts/git_work_logger.sh detect Bash \"$TOOL_INPUT\""
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "description": "PR merge - re-check priority",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if echo \"$TOOL_INPUT\" | grep -q 'gh pr merge'; then echo '\n✅ PRマージ完了。次の優先タスクを確認中...' && sleep 2 && ${CLAUDE_PLUGIN_ROOT}/scripts/miyabi-priority-check.sh --verbose; fi"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "description": "Issue close - re-check priority",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if echo \"$TOOL_INPUT\" | grep -q 'gh issue close'; then echo '\n✅ Issue完了。次の優先タスクを確認中...' && ${CLAUDE_PLUGIN_ROOT}/scripts/miyabi-priority-check.sh --verbose; fi"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "description": "Git checkout detection - work start declaration",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if echo \"$TOOL_INPUT\" | grep -q 'git checkout -b\\|git switch -c'; then osascript -e 'display notification \"新ブランチ作成中...\" with title \"Miyabi Git Logger\"' 2>/dev/null; fi"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "description": "Worktree add - enforce priority check",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if echo \"$TOOL_INPUT\" | grep -q 'git worktree add'; then ${CLAUDE_PLUGIN_ROOT}/scripts/miyabi-priority-check.sh --enforce || (echo '\n❌ 優先タスクが残っています。先に完了してください。' && exit 1); fi"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "description": "New issue - priority check before creation",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if echo \"$TOOL_INPUT\" | grep -q 'gh issue create'; then echo '\n⚠️ 新規Issue作成前に優先順位を確認...' && ${CLAUDE_PLUGIN_ROOT}/scripts/miyabi-priority-check.sh; fi"
+          }
+        ]
+      },
+      {
+        "matcher": "Task",
+        "description": "Task Tool - priority check before sub-agent launch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/miyabi-priority-check.sh --json > /tmp/miyabi-current-priority.json && cat /tmp/miyabi-current-priority.json | jq -r '.action_required' | grep -v 'technical_debt' && echo '\n⚠️ 優先タスクがあります。先に対応してください。' || true"
+          }
+        ]
+      }
+    ]
+  }
+}

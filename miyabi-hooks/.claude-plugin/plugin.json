@@ -1,0 +1,12 @@
+{
+  "name": "miyabi-hooks",
+  "version": "2.0.0",
+  "description": "Pre/Post Tool Hooks for automated workflows",
+  "author": {
+    "name": "Shunsuke Hayashi",
+    "email": "supernovasyun@gmail.com"
+  },
+  "license": "Apache-2.0",
+  "keywords": ["hooks", "automation", "events"],
+  "hooks": "./hooks/hooks.json"
+}

@@ -1,58 +1,68 @@
 {
-  "name": "miyabi-official",
-  "owner": "miyabi",
-  "description": "Miyabi - 完全自律型AI開発オペレーションプラットフォーム",
-  "repository": "https://github.com/ShunsukeHayashi/miyabi-claude-plugins",
-  "homepage": "https://shunsukehayashi.github.io/miyabi-claude-plugins/",
+  "name": "miyabi-plugins",
+  "owner": {
+    "name": "Shunsuke Hayashi",
+    "email": "supernovasyun@gmail.com"
+  },
+  "metadata": {
+    "description": "Miyabi Plugin Suite - Complete autonomous AI development operations platform"
+  },
   "plugins": [
     {
       "name": "miyabi-full",
-      "source": "https://shunsukehayashi.github.io/miyabi-claude-plugins/miyabi-full-v2.0.0.zip",
-      "version": "2.0.0",
-      "description": "Miyabi 完全パッケージ - 25 Agents + 22 Skills + 50 Commands",
-      "featured": true
-    },
-    {
-      "name": "miyabi-coding-agents",
-      "source": "https://shunsukehayashi.github.io/miyabi-claude-plugins/miyabi-coding-agents-v2.0.0.zip",
-      "version": "2.0.0",
-      "description": "9 Coding Agents"
+      "source": "./miyabi-full",
+      "description": "Miyabi 完全パッケージ - 25+ Agents, 22 Skills, 50+ Commands, MCP Integration",
+      "version": "2.1.0",
+      "author": { "name": "Shunsuke Hayashi" }
     },
     {
       "name": "miyabi-business-agents",
-      "source": "https://shunsukehayashi.github.io/miyabi-claude-plugins/miyabi-business-agents-v2.0.0.zip",
-      "version": "2.0.0",
-      "description": "16 Business Agents"
+      "source": "./miyabi-business-agents",
+      "description": "16 Business Agents for marketing, sales, content, and analytics automation",
+      "version": "2.1.0",
+      "author": { "name": "Shunsuke Hayashi" }
     },
     {
-      "name": "miyabi-skills",
-      "source": "https://shunsukehayashi.github.io/miyabi-claude-plugins/miyabi-skills-v2.0.0.zip",
-      "version": "2.0.0",
-      "description": "22 Development Skills"
+      "name": "miyabi-coding-agents",
+      "source": "./miyabi-coding-agents",
+      "description": "9 Coding Agents for automated software development",
+      "version": "2.1.0",
+      "author": { "name": "Shunsuke Hayashi" }
     },
     {
       "name": "miyabi-commands",
-      "source": "https://shunsukehayashi.github.io/miyabi-claude-plugins/miyabi-commands-v2.0.0.zip",
-      "version": "2.0.0",
-      "description": "50+ Slash Commands"
-    },
-    {
-      "name": "miyabi-hooks",
-      "source": "https://shunsukehayashi.github.io/miyabi-claude-plugins/miyabi-hooks-v2.0.0.zip",
-      "version": "2.0.0",
-      "description": "Pre/Post Tool Hooks"
-    },
-    {
-      "name": "miyabi-honoka",
-      "source": "https://shunsukehayashi.github.io/miyabi-claude-plugins/miyabi-honoka-v2.0.0.zip",
-      "version": "2.0.0",
-      "description": "穂花 - Udemyコース作成Agent"
+      "source": "./miyabi-commands",
+      "description": "50+ Slash Commands for development automation",
+      "version": "2.1.0",
+      "author": { "name": "Shunsuke Hayashi" }
     },
     {
       "name": "miyabi-guardian",
-      "source": "https://shunsukehayashi.github.io/miyabi-claude-plugins/miyabi-guardian-v2.0.0.zip",
-      "version": "2.0.0",
-      "description": "Guardian - 障害対応Agent"
+      "source": "./miyabi-guardian",
+      "description": "Guardian Agent - Manual escalation and critical incident response",
+      "version": "2.1.0",
+      "author": { "name": "Shunsuke Hayashi" }
+    },
+    {
+      "name": "miyabi-honoka",
+      "source": "./miyabi-honoka",
+      "description": "Honoka - Udemy course creation and content sales specialist Agent",
+      "version": "2.1.0",
+      "author": { "name": "Shunsuke Hayashi" }
+    },
+    {
+      "name": "miyabi-hooks",
+      "source": "./miyabi-hooks",
+      "description": "Pre/Post Tool Hooks for automated workflows",
+      "version": "2.1.0",
+      "author": { "name": "Shunsuke Hayashi" }
+    },
+    {
+      "name": "miyabi-skills",
+      "source": "./miyabi-skills",
+      "description": "22 Development Skills for Rust, TDD, Git, Security, Performance, and more",
+      "version": "2.1.0",
+      "author": { "name": "Shunsuke Hayashi" }
     }
   ]
 }

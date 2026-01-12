@@ -1,0 +1,12 @@
+{
+  "name": "miyabi-guardian",
+  "version": "2.0.0",
+  "description": "Guardian Agent - 手動エスカレーション・クリティカル障害対応",
+  "author": {
+    "name": "Shunsuke Hayashi",
+    "email": "supernovasyun@gmail.com"
+  },
+  "license": "Apache-2.0",
+  "keywords": ["security", "escalation", "incident-response"],
+  "agents": "./agents"
+}

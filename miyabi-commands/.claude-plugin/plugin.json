@@ -1,0 +1,12 @@
+{
+  "name": "miyabi-commands",
+  "version": "2.0.0",
+  "description": "50+ Slash Commands for development automation",
+  "author": {
+    "name": "Shunsuke Hayashi",
+    "email": "supernovasyun@gmail.com"
+  },
+  "license": "Apache-2.0",
+  "keywords": ["commands", "cli", "automation"],
+  "commands": "./commands"
+}
