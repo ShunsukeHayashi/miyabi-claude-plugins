@@ -1,0 +1,32 @@
+# xAIトレンド追跡キーワードリスト
+# @The_AGI_WAY アカウントに関連するキーワード
+
+## AIエージェント関連
+OpenClaw
+Miyabi
+MISO
+AIエージェント
+MultiAgent
+MCP
+プロンプトエンジニアリング
+
+## 技術キーワード
+Claude Code
+ChatGPT
+Grok
+xAI
+AGI
+自律型AI
+
+## ツール・フレームワーク
+LangChain
+AutoGPT
+BabyAGI
+AgentGPT
+CrewAI
+
+## コミュニティ
+#AI
+#LLM
+#生成AI
+#プロンプト
